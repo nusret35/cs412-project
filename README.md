@@ -70,7 +70,9 @@ Additional to the keywords, we have also added some other features like ```turki
 
 We have used several methods to deal with this project. We have used Decision Tree Classifiers, Random Forest, Support Vector Machines, Gradient Boosting, and Neural Network. Out of these 5 methods, the most promising methods were Gradient Boosting and Neural Network. Since the task is too complex to find a good classifier, we tried several configurations and various features to find the most optimal model. Due to the scaricity of data, we decided to use **cross-validation**. Initially, we used ```train_test_split``` but since the there is not enough data to accurately test the model, cross-validation seemed to be the best way to do it. We have used 5 splits for K-fold. For the accuracy, we decided on threshold value of 6. If the difference between the threshold value and the predicted value is less than or equal to 6, it is considered as an accurate prediction. For each fold, we have calculated MSE (Mean Square Error), MAPE (Mean Absolute Percentage Error), and Accuracy. At the end, we have calculated these metrics across all folds. To see the overall accuracy of the model on the marginal rate, we ran the tests on whole data and plotted the results.
 
-### Neural Netowrok
+We have tried several
+
+### Neural Network
 
 For neural network we have build the following model:
 
@@ -88,7 +90,7 @@ model = Sequential([
 # Compile the model with a lower learning rate
 model.compile(optimizer= Adam(learning_rate=0.000625), loss='mean_squared_error')
 ```
-This model consists of input layer, output layer, and two hidden layers. The model compiles with Adam optimizer with a low learning rate of 0.000625. We avoid making the model too complex since it would cause it to overfit. Also adding ```Dropout``` layers with a rate of 0.5, helped us to avoid overfitting, as it drops out randomly selected neurons that may cause to overfit. 
+This model consists of input layer, output layer, and two hidden layers. The model compiles with Adam optimizer with a low learning rate of 0.000625. We avoid making the model too complex since it would cause it to overfit. Dense layers are fully connected layers where every neuron is connected to each other. ReLU activation function is introduced for non-linearity. Since Dense layers are fully connected, there was a risk of overfitting. Adding ```Dropout``` layers with a rate of 0.5, helped us to avoid overfitting, as it drops out randomly selected neurons that may cause to overfit. Output layer is Dense layer with one neuron, with no acitvation function, which is typical for regression tasks where it outputs the predicted value directly. Epochs is set to 250 which gives the optimal accuracy for this task. Anything below 250 cause it to underfit and anything above cause it to overfit. 250 is just the right spot for it.
 
 ### Cross Validation
 
@@ -159,6 +161,54 @@ for index_to_predict in indices_to_predict:
     total_predictions = len(y_test)
     accuracy = correct_predictions / total_predictions * 100
     accuracy_values.append(accuracy)
+```
+
+### Gradient Boosting
+
+Gradient Boosting was our second best remedy for this task. At first, it seemed useful to use but after some re-testing and re-evaluating, we have came to a conclusion that it does not provide the precision that is required for this complex task. In our first trials, Gradient Boosting showed promising results, especially with cross-validation, until we tried with the brand new data that is provided by the instructor. Gradient Boosting model predicted huge majority of the entries as 100, which we believe that is not the case. We again used cross-validation and overall testing for the Gradient Boosting
+
+```python
+k_fold = KFold(n_splits=5, shuffle=True, random_state=42)
+# Assuming 'X' contains your features and 'y' contains the target variable ('grade')
+#Not using at the moment
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Best parameters: {'learning_rate': 0.01, 'max_depth': 5, 'min_samples_leaf': 4, 'min_samples_split': 2, 'n_estimators': 50, 'subsample': 0.8}
+# Mean Squared Error on test set: 98.0395036389909
+ 
+
+# Create and train the Gradient Boosting model
+gb_model = GradientBoostingRegressor(n_estimators=99, learning_rate=0.01, random_state=42, max_depth=3, subsample=0.8,min_samples_split=10, min_samples_leaf=4)
+
+scores = cross_val_score(gb_model, X, y, cv=k_fold, scoring='neg_mean_squared_error')
+
+print("Cross-Validation Scores:", scores)
+print("Mean MSE:", -scores.mean())  # Convert back to positive for interpretation
+print("Standard Deviation:", scores.std())
+
+gb_model.fit(X, y)
+
+# Make predictions on the test set
+predictions_gb = gb_model.predict(X_test)
+
+# Evaluate the Gradient Boosting model
+mse_gb = mean_squared_error(y_test, predictions_gb)
+print(f'Mean Squared Error (Gradient Boosting): {mse_gb}')
+
+# Choose an index from X_test to test a specific data point
+index_to_test = -6  # You can change this to the index you want to test
+
+# Get the features of the specific data point
+features_to_test = X_test[index_to_test, :].reshape(1, -1)
+
+# Get the real target value for the specific data point
+real_value = y_test[index_to_test]
+
+# Make predictions for the specific data point
+predicted_value = gb_model.predict(features_to_test)[0]
+
+print(f"Real Value: {real_value}")
+print(f"Predicted Value: {predicted_value}")
 ```
 
 
