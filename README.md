@@ -3,9 +3,10 @@
 
 ## Preprocessing
 First we preprocessed the conservations and the questions with the following functions
+```python
 def convert_to_lowercase(text):
 return text.lower()
-```python
+
 def remove_special_characters(text):
     special_characters_to_be_removed = ["'", ",", "*", "_", "(", ")", "/", "&", "%", "+", "^", ";", "=", "\\", "-", "%",'"',".",":",">","?","!"]    
     cleaned_text = ''
