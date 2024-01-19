@@ -356,6 +356,11 @@ plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--',
 
 ### GRADIENT BOOSTING 
 
+### Cross Validation
+
+![863947ad-912f-48f2-83fc-8fd1f946eb45](https://github.com/nusret35/cs412-project/assets/96892300/376a1a22-a9a5-484e-a23b-597f8590e99b)
+
+
 #### Overall Performance
 
 ![788d10bc-c195-48f3-99b4-7219b1c12748](https://github.com/nusret35/cs412-project/assets/96892300/7f39e6f9-07df-4645-92cd-8e6f5e47344d)
