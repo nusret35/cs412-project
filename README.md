@@ -1,5 +1,7 @@
 # OVERVIEW OF THE REPOSITORY:
 
+
+## Preprocessing
 First we preprocessed the conservations and the questions with the following functions
 def convert_to_lowercase(text):
 return text.lower()
@@ -56,7 +58,11 @@ def clean_text(text):
 
     return cleaned_text
 ```
-Link different script and code pieces used and explain their function for the project
+## Feature Engineering
+
+For the features, we have added several keywords on top of the already given keywords. We added ```impurity```, ```gain```, ```hyperparameter```, ```sure```, ```python understand```,and ```please```. These keywords seem to have some insight about the student's approach. For example, "impurity" and "gain" are essential keywords, especially when the student is dealing with the information gain question. This feature may classify the ones that got higher scores. The words like "please" and "thank" seem to be used mostly by the people who are not very familiar with ChatGPT. So, these keywords may classify the ones that got lower scores. 
+
+Additional to the keywords, we have also added some other features like ```turkish_characters``` and ```similarity_prompt_response```. When we skimmed through the HTML files, we have seen that some students communicated in Turkish language. ChatGPT is known to work best in English. Therefore, we thought that using Turkish language may be a sign of lower performance, resulting in lower grades. ```similarity_prompt_response``` could be a useful feature since it shows how the student asked question that are related to the responses. This could be an indicator how well the student dive deep into the questions and tried to solve the question properly. Therefore, this could be a classifier for high scores as well.
 
 # METHODOLOGY:
 
@@ -69,3 +75,4 @@ Link different script and code pieces used and explain their function for the pr
 # TEAM CONTRIBUTIONS
 
     List all team members by their names and how they contributed to the project
+
