@@ -1,6 +1,6 @@
 # CS412 Machine Learning Project
 
-This repository is initiated for our machine learning course at Sabancı University. The collaborators of this project are Nusret Ali Kızılaslan, Ali Güneysu, Berenay Yiğit, Kağan Kasapoğlu, and Mert Ziya. For the project, we tried to develop a machine learning model that deals with ChatGPT conversations by students, who consulted to it while they were solving their homework. The model is responsible to predict the expected score of the student, according to their ChatGPT conversations. The notebook and the material that we have used for the project can be found in this repository.
+This repository is initiated for our machine learning course at Sabancı University. The collaborators of this project are Nusret Ali Kızılaslan, Ali Güneysu, Ebrar Berenay Yiğit, Kağan Kasapoğlu, and Mert Ziya. For the project, we tried to develop a machine learning model that deals with ChatGPT conversations by students, who consulted to it while they were solving their homework. The model is responsible to predict the expected score of the student, according to their ChatGPT conversations. The notebook and the material that we have used for the project can be found in this repository.
 
 ## Preprocessing
 First we preprocessed the conservations and the questions with the following functions
@@ -215,7 +215,32 @@ print(f"Predicted Value: {predicted_value}")
 
     Experimental findings supported by figures, tables etc.
 
-# TEAM CONTRIBUTIONS
-
-    List all team members by their names and how they contributed to the project
-
+# TEAM CONTRIBUTIONS:
+ Our collaborative effort on this machine learning project involved a variety of tasks, and each team member played a crucial role. The following outlines the individual contributions of each team member:
+ 1. **Nusret Ali Kızılaslan**
+ - Developed the neural network model.
+ - Contributed to the selection and fine-tuning of hyperparameters for the neural network.
+ - Participated actively in Zoom meetings to discuss the overall model architecture and its integration into the project.
+ 2. **Ali Vehbi Güneysu**
+ - Developed the gradient boosting model.
+ - Conducted extensive experimentation with hyperparameters to optimize the performance of the gradient boosting model.
+ - Collaborated in Zoom meetings to share insights and findings related to the gradient boosting approach.
+ 3. **Ebrar Berenay Yiğit**
+ - Developed the Support Vector Machine (SVM) model.
+ - Contributed to the feature engineering process and extraction of relevant information from the ChatGPT conversations.
+ - Actively participated in Zoom meetings to discuss SVM model results and fine-tune parameters.
+ 4. **Kağan Kasapoğlu**
+ - Developed the random forest model.
+ - Contributed to the feature engineering phase, identifying key keywords and patterns.
+ - Engaged in collaborative decision-making during Zoom meetings, providing valuable input on model selection and performance.
+ 5. **Mert Ziya**
+ - Developed the decision tree classifier model.
+ - Contributed to the preprocessing of conversations and questions, ensuring data quality.
+ - Actively participated in Zoom meetings, offering insights into decision tree model behavior and results.
+ 
+ **Collective Efforts:**
+ - Collaboratively worked on the development of the final machine learning model that decided as neural network model.
+ - Engaged in frequent Zoom meetings to discuss progress, share insights, and collectively decide on the best approaches for the project.
+ - Contributed to the preprocessing of data, including text cleaning, tokenization, and feature engineering.
+ - Worked collectively to identify key features and insights from the data that could enhance the model's predictive capabilities.
+ Our group synergy, facilitated by regular communication and shared responsibilities, enabled us to successfully develop and evaluate multiple machine learning models for the given task. The diverse expertise of each team member contributed to the comprehensive approach taken in tackling the challenges posed by the project.
