@@ -3,7 +3,7 @@
 This repository is initiated for our machine learning course at Sabancı University. The collaborators of this project are Nusret Ali Kızılaslan, Ali Güneysu, Ebrar Berenay Yiğit, Kağan Kasapoğlu, and Mert Ziya. For the project, we tried to develop a machine learning model that deals with ChatGPT conversations by students, who consulted to it while they were solving their homework. The model is responsible to predict the expected score of the student, according to their ChatGPT conversations. The notebook and the material that we have used for the project can be found in this repository.
 
 ## Preprocessing
-First we preprocessed the conservations and the questions with the following functions
+Preprocessing process was already done in the provided notebook. Therefore we additioally preprocessed the conservations and the questions with the following functions.
 ```python
 def convert_to_lowercase(text):
     return text.lower()
@@ -64,11 +64,11 @@ def clean_text(text):
 
 For the features, we have added several keywords on top of the already given keywords. We added ```impurity```, ```gain```, ```hyperparameter```, ```sure```, ```understand```,and ```please```. These keywords seem to have some insight about the student's approach. For example, "impurity" and "gain" are essential keywords, especially when the student is dealing with the information gain question. This feature may classify the ones that got higher scores. The words like "please" and "thank" seem to be used mostly by the people who are not very familiar with ChatGPT. So, these keywords may classify the ones that got lower scores. 
 
-Additional to the keywords, we have also added some other features like ```turkish_characters``` and ```similarity_prompt_response```. When we skimmed through the HTML files, we have seen that some students communicated in Turkish language. ChatGPT is known to work best in English. Therefore, we thought that using Turkish language may be a sign of lower performance, resulting in lower grades. ```similarity_prompt_response``` could be a useful feature since it shows how the student asked question that are related to the responses. This could be an indicator how well the student dive deep into the questions and tried to solve the question properly. Therefore, this could be a classifier for high scores as well.
+Additional to the keywords, we have also added some other features like ```turkish_characters``` and ```similarity_prompt_response```. When we skimmed through the HTML files, we have seen that some students communicated in Turkish language. ChatGPT is known to work best in English. Therefore, we thought that using Turkish language may be a sign of lower performance, resulting in lower grades. ```similarity_prompt_response``` could be a useful feature since it shows how the student asked question that are related to the responses. This could be an indicator how well the student dive deep into the questions and tried to solve the question properly. Therefore, this could be a classifier for high scores as well. We measured the similarity by Jaccard index.
 
 ## Methodology
 
-We have used several methods to deal with this project. We have used Decision Tree Classifiers, Random Forest, Support Vector Machines, Gradient Boosting, and Neural Network. Out of these 5 methods, the most promising methods were Gradient Boosting and Neural Network. Since the task is too complex to find a good classifier, we tried several configurations and various features to find the most optimal model. Due to the scaricity of data, we decided to use **cross-validation**. Initially, we used ```train_test_split``` but since the there is not enough data to accurately test the model, cross-validation seemed to be the best way to do it. We have used 5 splits for K-fold. For the accuracy, we decided on threshold value of 6. If the difference between the threshold value and the predicted value is less than or equal to 6, it is considered as an accurate prediction. For each fold, we have calculated MSE (Mean Square Error), MAPE (Mean Absolute Percentage Error), and Accuracy. At the end, we have calculated these metrics across all folds. To see the overall accuracy of the model on the marginal rate, we ran the tests on whole data and plotted the results.
+We have used several methods to deal with this project. We have used Decision Tree Classifiers, Random Forest, Support Vector Machines, Gradient Boosting, and Neural Network. Out of these 5 methods, the most promising methods were Gradient Boosting and Neural Network. Since the task is too complex to find a good classifier, we tried several configurations and various features to find the most optimal model. Due to the scaricity of data, we decided to use **cross-validation**. Initially, we used ```train_test_split``` but since there is not enough data to accurately test the model, cross-validation seemed to be the best way to do it. We have used 5 splits for K-fold. For the accuracy, we decided on threshold value of 6. If the difference between the threshold value and the predicted value is less than or equal to 6, it is considered as an accurate prediction. For each fold, we have calculated MSE (Mean Square Error), MAPE (Mean Absolute Percentage Error), and Accuracy. At the end, we have calculated these metrics across all folds. To see the overall accuracy of the model on the marginal rate, we ran the tests on whole data and plotted the results.
 
 
 ### Neural Network
@@ -209,6 +209,104 @@ predicted_value = gb_model.predict(features_to_test)[0]
 print(f"Real Value: {real_value}")
 print(f"Predicted Value: {predicted_value}")
 ```
+
+# SVM
+We tried to work it out on SVM, but we did not see any potential after few trials so we abandon it. We did not use cross-validation for this one.
+
+```python
+from sklearn.svm import SVR
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error
+
+# Assuming 'X' contains your features and 'y' contains the target variable ('grade')
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Standardize the data
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Create and train the SVR model
+model = SVR(kernel='linear')  # You can experiment with different kernels, such as 'linear', 'rbf', etc.
+model.fit(X_train_scaled, y_train)
+
+# Make predictions on the test set
+predictions = model.predict(X_test_scaled)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, predictions)
+print(f'Mean Squared Error: {mse}')
+
+# Scatter plot of actual vs predicted values
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, predictions, color='blue', label='Actual vs Predicted')
+plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--', color='red', label='Perfect Prediction')
+```
+# Decision Tree
+
+Same for this one. Did not dive well into it since the other models where much more promising.
+
+```python
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create the Decision Tree Regressor model
+tree_model = DecisionTreeRegressor(random_state=42)
+
+# Fit the model to the training data
+tree_model.fit(X_train, y_train)
+
+# Predict the grades for the testing data
+predictions_tree = tree_model.predict(X_test)
+
+# Calculate the Mean Squared Error between the actual grades and the predicted grades
+mse_tree = mean_squared_error(y_test, predictions_tree)
+print(f'Mean Squared Error (Decision Tree): {mse_tree:.2f}')
+
+# Assuming 'X' and 'y' are already defined and are a numpy array and a vector respectively
+# Calculate the correlation matrix for the features and the target variable 'grade'
+df = pd.DataFrame(X, columns=[f'feature_{i}' for i in range(X.shape[1])])
+df['grade'] = y
+correlation_matrix = df.corr()
+
+# Identify the feature with the highest correlation (absolute value) to the grade
+highest_correlation_feature = correlation_matrix['grade'].drop(labels=['grade']).abs().idxmax()
+highest_correlation_value = correlation_matrix.loc[highest_correlation_feature, 'grade']
+
+# Output the feature with the highest correlation to the grade
+print(f'Highest correlation is with {highest_correlation_feature}: {highest_correlation_value:.3f}')
+```
+
+# Random Forest
+
+Third most promising model. Frankly, as we already so busy with gradient boosting and neural network, we did not delve much into it. Here it is anyway.
+
+```python
+
+# Assuming 'X' contains your features and 'y' contains the target variable ('grade')
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+# Create and train the Random Forest model
+forest_model = RandomForestRegressor()  # Experiment with different values
+
+
+forest_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+predictions_forest = forest_model.predict(X_test)
+
+# Evaluate the Random Forest model
+mse_forest = mean_squared_error(y_test, predictions_forest)
+print(f'Mean Squared Error (Random Forest): {mse_forest}')
+
+# Scatter plot of actual vs predicted values for RandomForest
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, predictions_forest, color='green', label='Actual vs Predicted (Random Forest)')
+plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--', color='red', label='Perfect Prediction')
+```
+
 
 
 # RESULTS:
