@@ -70,7 +70,6 @@ Additional to the keywords, we have also added some other features like ```turki
 
 We have used several methods to deal with this project. We have used Decision Tree Classifiers, Random Forest, Support Vector Machines, Gradient Boosting, and Neural Network. Out of these 5 methods, the most promising methods were Gradient Boosting and Neural Network. Since the task is too complex to find a good classifier, we tried several configurations and various features to find the most optimal model. Due to the scaricity of data, we decided to use **cross-validation**. Initially, we used ```train_test_split``` but since the there is not enough data to accurately test the model, cross-validation seemed to be the best way to do it. We have used 5 splits for K-fold. For the accuracy, we decided on threshold value of 6. If the difference between the threshold value and the predicted value is less than or equal to 6, it is considered as an accurate prediction. For each fold, we have calculated MSE (Mean Square Error), MAPE (Mean Absolute Percentage Error), and Accuracy. At the end, we have calculated these metrics across all folds. To see the overall accuracy of the model on the marginal rate, we ran the tests on whole data and plotted the results.
 
-We have tried several
 
 ### Neural Network
 
