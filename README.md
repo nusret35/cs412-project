@@ -366,11 +366,9 @@ plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--',
 
 ![788d10bc-c195-48f3-99b4-7219b1c12748](https://github.com/nusret35/cs412-project/assets/96892300/7f39e6f9-07df-4645-92cd-8e6f5e47344d)
 
-Mean MSE: 159.98995135158026
+**Mean MSE**: 159.98995135158026
 
 **Standard Deviation**: 159.51154985209436
-
-**Mean Squared Error (Gradient Boosting)**: 46.76876523513036
 
 
 ### SVM
