@@ -210,7 +210,7 @@ print(f"Real Value: {real_value}")
 print(f"Predicted Value: {predicted_value}")
 ```
 
-# SVM
+### SVM
 We tried to work it out on SVM, but we did not see any potential after few trials so we abandon it. We did not use cross-validation for this one.
 
 ```python
@@ -243,7 +243,7 @@ plt.figure(figsize=(10, 6))
 plt.scatter(y_test, predictions, color='blue', label='Actual vs Predicted')
 plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--', color='red', label='Perfect Prediction')
 ```
-# Decision Tree
+### Decision Tree
 
 Same for this one. Did not dive well into it since the other models where much more promising.
 
@@ -278,7 +278,7 @@ highest_correlation_value = correlation_matrix.loc[highest_correlation_feature, 
 print(f'Highest correlation is with {highest_correlation_feature}: {highest_correlation_value:.3f}')
 ```
 
-# Random Forest
+### Random Forest
 
 Third most promising model. Frankly, as we already so busy with gradient boosting and neural network, we did not delve much into it. Here it is anyway.
 
@@ -311,7 +311,79 @@ plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--',
 
 # RESULTS:
 
-    Experimental findings supported by figures, tables etc.
+### Neural Network
+
+#### Accuracy K-Fold
+
+![8d93184c-8e7b-4be1-9662-5e7fd5e6406c](https://github.com/nusret35/cs412-project/assets/96892300/2e5e147f-ddb3-412f-ba70-b42f39436147)
+
+Fold 1: Accuracy: 20.0%
+
+Fold 2: Accuracy: 48.0%
+
+Fold 3: Accuracy: 45.83333333333333%
+
+Fold 4: Accuracy: 45.83333333333333%
+
+Fold 5: Accuracy: 50.0%
+
+Mean Squared Error across 5 folds: 229.9384558816477
+
+Mean Absolute Error across 5 folds: 10.402523969014485
+
+Mean Absolute Percentage Error across 5 folds: 16.301748181497338%
+
+Mean Accuracy across 5 folds: 41.93333333333333%
+
+#### Overall Performance
+
+![0e9e9bde-4c1a-4cb9-9db6-597eec885d16](https://github.com/nusret35/cs412-project/assets/96892300/e3e1e748-199c-47a2-ac15-77991ff8d2fe)
+
+Mean Squared Error: 97.01699171271058
+
+Mean Absolute Error: 5.335291096421539
+
+Mean Accuracy: 50.0
+
+### GRADIENT BOOSTING 
+
+#### Overall Performance
+
+![788d10bc-c195-48f3-99b4-7219b1c12748](https://github.com/nusret35/cs412-project/assets/96892300/7f39e6f9-07df-4645-92cd-8e6f5e47344d)
+
+Mean MSE: 159.98995135158026
+
+Standard Deviation: 159.51154985209436
+
+Mean Squared Error (Gradient Boosting): 46.76876523513036
+
+
+### SVM
+
+#### Test Data Performance
+
+![4ca201b7-27c5-44f2-a5f0-7290c3b1853b](https://github.com/nusret35/cs412-project/assets/96892300/4d69abb3-0fbe-4b72-a090-ee92b19fa5b2)
+
+Mean Squared Error: 124.60196481037981
+
+### Decision Tree
+
+![aef6c4f9-9280-487e-90a1-a15f243bc3d5](https://github.com/nusret35/cs412-project/assets/96892300/85cb30e8-c04c-42a7-932f-8febb0cd3abc)
+
+
+
+### Random Forest
+
+#### Test Data Performance
+
+![d48911fa-9424-4854-97af-2dfa8e0e3510](https://github.com/nusret35/cs412-project/assets/96892300/5d04b46b-f561-408c-97f9-fecda4483674)
+
+
+
+
+
+
+
 
 # TEAM CONTRIBUTIONS
 
