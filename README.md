@@ -86,9 +86,80 @@ model = Sequential([
 ])
 
 # Compile the model with a lower learning rate
-model.compile(optimizer= Adam(learning_rate=0.0005), loss='mean_squared_error')
+model.compile(optimizer= Adam(learning_rate=0.000625), loss='mean_squared_error')
 ```
-This model consists of input, output, and two hidden layers. The model is comp
+This model consists of input layer, output layer, and two hidden layers. The model compiles with Adam optimizer with a low learning rate of 0.000625. We avoid making the model too complex since it would cause it to overfit. Also adding ```Dropout``` layers with a rate of 0.5, helped us to avoid overfitting, as it drops out randomly selected neurons that may cause to overfit. 
+
+### Cross Validation
+
+Cross validation consisted with 5 splits. We fit the model for every split and take the record of that particular iteration. We set epochs to 250, batch size to 32, validation split to 0.1. These values were set after several trials and we believe we finally found the sweet-spot for the optimal results. 
+
+```python
+    # Number of splits for cross-validation
+    n_splits = 5
+
+    # Initialize KFold
+    kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
+
+    # Perform cross-validation
+    for train_index, test_index in kf.split(X_scaled):
+    
+        X_train, X_test = X_scaled[train_index], X_scaled[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+    
+        # Train the model
+        model.fit(X_train, y_train, epochs=250, batch_size=32, validation_split=0.1, verbose=0)
+    
+        # Make predictions on the test set
+        predictions = model.predict(X_test)
+    
+        # Evaluate the model
+        mse = mean_squared_error(y_test, predictions)
+        mae = mean_absolute_error(y_test, predictions)
+        
+        # Calculate MAPE
+        mape = np.mean(np.abs((y_test - predictions.flatten()) / y_test)) * 100
+        
+        # Calculate accuracy (adjust threshold as needed)
+        threshold = 6  # Adjust as needed for your specific problem
+        correct_predictions = np.sum(np.abs(predictions.flatten() - y_test) < threshold)
+        total_predictions = len(y_test)
+        accuracy = correct_predictions / total_predictions * 100
+    
+        mse_values.append(mse)
+        mae_values.append(mae)
+        mape_values.append(mape)
+        accuracy_values.append(accuracy)
+    
+        print(f'MSE: {mse}, MAE: {mae}, MAPE: {mape}%, Accuracy: {accuracy}%')
+```
+### Overall Validation
+
+Addition to cross validation, we tested the model on the whole data. This validation showed us how well our model performs in overall. This validation was also beneficial to decide whether the model is underfitted or overfitted.
+```python
+for index_to_predict in indices_to_predict:
+    # Access the specific input from the test set
+    input_to_predict = X[index_to_predict, :]
+
+    # If you used scaling during training, apply the same scaling to the input
+    input_to_predict_scaled = scaler.transform(input_to_predict.reshape(1, -1))
+
+    prediction = model.predict(input_to_predict_scaled)
+
+    # Append actual and predicted values for later error calculation
+    y_actual.append(y[index_to_predict])
+    y_predicted.append(min(prediction[0][0], 100))  # Ensure the prediction is within [0, 100]
+
+    print(f"Actual Grade: {y[index_to_predict]}")
+    print(f"Predicted Grade: {min(prediction[0][0], 100)}")
+
+    threshold = 6
+
+    correct_predictions = np.sum(np.abs(predictions.flatten() - y_test) < threshold)
+    total_predictions = len(y_test)
+    accuracy = correct_predictions / total_predictions * 100
+    accuracy_values.append(accuracy)
+```
 
 
 # RESULTS:
