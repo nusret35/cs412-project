@@ -66,6 +66,15 @@ For the features, we have added several keywords on top of the already given key
 
 Additional to the keywords, we have also added some other features like ```turkish_characters``` and ```similarity_prompt_response```. When we skimmed through the HTML files, we have seen that some students communicated in Turkish language. ChatGPT is known to work best in English. Therefore, we thought that using Turkish language may be a sign of lower performance, resulting in lower grades. ```similarity_prompt_response``` could be a useful feature since it shows how the student asked question that are related to the responses. This could be an indicator how well the student dive deep into the questions and tried to solve the question properly. Therefore, this could be a classifier for high scores as well. We measured the similarity by Jaccard index.
 
+```python
+def jaccard_similarity(text1, text2):
+    set1 = set(text1.split())
+    set2 = set(text2.split())
+    intersection = len(set1.intersection(set2))
+    union = len(set1.union(set2))
+    return intersection / union if union != 0 else 0
+```
+
 ## Methodology
 
 We have used several methods to deal with this project. We have used Decision Tree Classifiers, Random Forest, Support Vector Machines, Gradient Boosting, and Neural Network. Out of these 5 methods, the most promising methods were Gradient Boosting and Neural Network. Since the task is too complex to find a good classifier, we tried several configurations and various features to find the most optimal model. Due to the scaricity of data, we decided to use **cross-validation**. Initially, we used ```train_test_split``` but since there is not enough data to accurately test the model, cross-validation seemed to be the best way to do it. We have used 5 splits for K-fold. For the accuracy, we decided on threshold value of 6. If the difference between the threshold value and the predicted value is less than or equal to 6, it is considered as an accurate prediction. For each fold, we have calculated MSE (Mean Square Error), MAPE (Mean Absolute Percentage Error), and Accuracy. At the end, we have calculated these metrics across all folds. To see the overall accuracy of the model on the marginal rate, we ran the tests on whole data and plotted the results.
@@ -317,33 +326,33 @@ plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--',
 
 ![8d93184c-8e7b-4be1-9662-5e7fd5e6406c](https://github.com/nusret35/cs412-project/assets/96892300/2e5e147f-ddb3-412f-ba70-b42f39436147)
 
-Fold 1: Accuracy: 20.0%
+**Fold 1**: Accuracy: 20.0%
 
-Fold 2: Accuracy: 48.0%
+**Fold 2**: Accuracy: 48.0%
 
-Fold 3: Accuracy: 45.83333333333333%
+**Fold 3**: Accuracy: 45.83333333333333%
 
-Fold 4: Accuracy: 45.83333333333333%
+**Fold 4**: Accuracy: 45.83333333333333%
 
-Fold 5: Accuracy: 50.0%
+**Fold 5**: Accuracy: 50.0%
 
-Mean Squared Error across 5 folds: 229.9384558816477
+**Mean Squared Error across 5 folds**: 229.9384558816477
 
-Mean Absolute Error across 5 folds: 10.402523969014485
+**Mean Absolute Error across 5 folds**: 10.402523969014485
 
-Mean Absolute Percentage Error across 5 folds: 16.301748181497338%
+**Mean Absolute Percentage Error across 5 folds**: 16.301748181497338%
 
-Mean Accuracy across 5 folds: 41.93333333333333%
+**Mean Accuracy across 5 folds**: 41.93333333333333%
 
 #### Overall Performance
 
 ![0e9e9bde-4c1a-4cb9-9db6-597eec885d16](https://github.com/nusret35/cs412-project/assets/96892300/e3e1e748-199c-47a2-ac15-77991ff8d2fe)
 
-Mean Squared Error: 97.01699171271058
+**Mean Squared Error**: 97.01699171271058
 
-Mean Absolute Error: 5.335291096421539
+**Mean Absolute Error**: 5.335291096421539
 
-Mean Accuracy: 50.0
+**Mean Accuracy**: 50.0
 
 ### GRADIENT BOOSTING 
 
@@ -353,9 +362,9 @@ Mean Accuracy: 50.0
 
 Mean MSE: 159.98995135158026
 
-Standard Deviation: 159.51154985209436
+**Standard Deviation**: 159.51154985209436
 
-Mean Squared Error (Gradient Boosting): 46.76876523513036
+**Mean Squared Error (Gradient Boosting)**: 46.76876523513036
 
 
 ### SVM
@@ -364,7 +373,7 @@ Mean Squared Error (Gradient Boosting): 46.76876523513036
 
 ![4ca201b7-27c5-44f2-a5f0-7290c3b1853b](https://github.com/nusret35/cs412-project/assets/96892300/4d69abb3-0fbe-4b72-a090-ee92b19fa5b2)
 
-Mean Squared Error: 124.60196481037981
+**Mean Squared Error**: 124.60196481037981
 
 ### Decision Tree
 
