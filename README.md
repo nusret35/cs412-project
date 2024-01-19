@@ -1,5 +1,6 @@
-# OVERVIEW OF THE REPOSITORY:
+# CS412 Machine Learning Project
 
+This repository is initiated for our machine learning course at Sabancı University. The collaborators of this project are Nusret Ali Kızılaslan, Ali Güneysu, Berenay Yiğit, Kağan Kasapoğlu, and Mert Ziya. For the project, we tried to develop a machine learning model that deals with ChatGPT conversations by students, who consulted to it while they were solving their homework. The model is responsible to predict the expected score of the student, according to their ChatGPT conversations. The notebook and the material that we have used for the project can be found in this repository.
 
 ## Preprocessing
 First we preprocessed the conservations and the questions with the following functions
@@ -67,7 +68,8 @@ Additional to the keywords, we have also added some other features like ```turki
 
 # METHODOLOGY:
 
-    High-level explanation of things considered and solutions offered.
+
+
 
 # RESULTS:
 
